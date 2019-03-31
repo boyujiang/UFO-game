@@ -21,7 +21,7 @@ public class ItemDecrease : MonoBehaviour
         
     // }
 
-    //Populates the text field with quantity
+    //Populates the text field with quantity. Value changes only if quantity is greater than 0
     public void updateText(){
 
         count = int.Parse(itemCount.text);

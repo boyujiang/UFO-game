@@ -37,7 +37,7 @@ public class GameStoreController : MonoBehaviour
     }
 
     //Loads the Game-Store scene
-    void generateUI(){
+    public void generateUI(){
 
         SceneManager.LoadScene("game-store");
 
@@ -48,5 +48,9 @@ public class GameStoreController : MonoBehaviour
 
         buyableObjectsMap.add("MaxHealthUpgrade", 100);
 
+    }
+
+    public void purchase(Dictionary<string, int> object){
+        //GameState update to health and currency
     }
 }

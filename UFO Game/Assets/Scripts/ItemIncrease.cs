@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class ItemIncrease : MonoBehaviour
 {
     public Text itemCount;
-
-    private string tempCount;
     
-    public static int count;
+    int count;
     // Start is called before the first frame update
     void Start()
     {
-    
+        count = int.Parse(itemCount.text);
     }
 
     // Update is called once per frame
@@ -22,8 +20,11 @@ public class ItemIncrease : MonoBehaviour
         
     // }
 
-    public void update(){
+    public void updateText(){
         
+        count = int.Parse(itemCount.text);
         count++;
+        itemCount.text = count.ToString();
+        Debug.Log(count);
     }
 }

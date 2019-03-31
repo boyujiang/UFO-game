@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameStoreController : MonoBehaviour
 {
-    //public Map<String, Integer> buyableObjectsMap;
+    public Dictionary<string, int> buyableObjectsMap;
 
     public Text itemCount;
     public GameObject purchaseButton;
 
-    public GameState gs;
+    //public GameState gameState;
 
     int count;
+
     // Start is called before the first frame update
     void Start()
     {
-        count = int.ParseInt(itemCount.text);
+        count = int.Parse(itemCount.text);
+        buyableObjectsMap = new Dictionary<string, int>();
     }
 
     // Update is called once per frame
@@ -25,10 +28,25 @@ public class GameStoreController : MonoBehaviour
         
     // }
 
+    //Adds 10 health to max health in game state
     public void upgradePlayer(){
 
         int healthIncrease = 10; //Can change value
 
+
+    }
+
+    //Loads the Game-Store scene
+    void generateUI(){
+
+        SceneManager.LoadScene("game-store");
+
+    }
+
+    //Adds store elements to store
+    void addToStore(){
+
+        buyableObjectsMap.add("MaxHealthUpgrade", 100);
 
     }
 }

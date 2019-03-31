@@ -19,7 +19,8 @@ public class ItemIncrease : MonoBehaviour
     // {
         
     // }
-
+    
+    //Populates the text field with quantity
     public void updateText(){
         
         count = int.Parse(itemCount.text);

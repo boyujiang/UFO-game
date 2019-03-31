@@ -8,7 +8,9 @@ public class ItemDecrease : MonoBehaviour
 
     public Text itemCount;
 
-    int count = 0;
+    private string tempCount;
+
+    public static int count;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,8 @@ public class ItemDecrease : MonoBehaviour
     // {
         
     // }
-    public void updateText(){
+    public void update(){
         
-        itemCount.text = count--.ToString();
+        count--;
     }
 }

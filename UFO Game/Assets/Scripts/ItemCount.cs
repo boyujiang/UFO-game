@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemCount : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,6 @@ public class ItemCount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

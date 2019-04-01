@@ -7,11 +7,11 @@ public class ItemIncrease : MonoBehaviour
 {
     public Text itemCount;
     
-    int count = 0;
+    int count;
     // Start is called before the first frame update
     void Start()
     {
-        
+        count = int.Parse(itemCount.text);
     }
 
     // Update is called once per frame
@@ -19,9 +19,13 @@ public class ItemIncrease : MonoBehaviour
     // {
         
     // }
-
+    
+    //Populates the text field with quantity
     public void updateText(){
         
-        itemCount.text = count++.ToString();
+        count = int.Parse(itemCount.text);
+        count++;
+        itemCount.text = count.ToString();
+        Debug.Log(count);
     }
 }

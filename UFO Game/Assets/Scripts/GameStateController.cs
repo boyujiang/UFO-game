@@ -13,10 +13,14 @@ public class GameStateController : MonoBehaviour
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
     public int technology { get; set; }
+    public int[] unlockedLevels { get; set; }
+    public int[] allLevels { get; set; }
+
     public DateTime nextRegenTime { get; set; }
     public static GameStateController controller;
 
-    private int regenerateLifeLatency = 3;
+    private const int RegenerateLifeLatency = 5; // in minutes
+    private const int Levels = 3;
 
     void Awake()
     {
@@ -31,27 +35,35 @@ public class GameStateController : MonoBehaviour
             Destroy(gameObject); // Enforces only one instance of GameStateController
         }
 
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        TimeSpan timeSpan = nextRegenTime - DateTime.Now;
+        //TimeSpan timeSpan = nextRegenTime - DateTime.Now;
 
-        if (timeSpan < TimeSpan.Zero)
+        if (DateTime.Compare(DateTime.Now, nextRegenTime) >= 0)
         {
             if (livesRemaining < maxLives)
             {
+                
                 livesRemaining++;
+                Debug.Log("Life increased; Current amount of lives: " + livesRemaining);
             }
-            nextRegenTime = DateTime.Now.AddMinutes(regenerateLifeLatency);
+            
+            nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency);
         }
     }
 
     // Used for testing purposes
     void OnGUI()
     {
+        /*
+        if (GUI.Button(new Rect(10, 100, 300, 30), "Next regen: " + nextRegenTime.ToLocalTime()))
+        {
+
+        }
+        */
 
     }
 
@@ -60,7 +72,15 @@ public class GameStateController : MonoBehaviour
     {
         if (hasFocus)
         {
-            nextRegenTime = DateTime.Now.AddMinutes(regenerateLifeLatency); // This will be overwritten if there already is a time in save file
+            Debug.Log("In focus");
+            allLevels = new int[Levels];
+            unlockedLevels = new int[Levels];
+            for (int i = 0; i < allLevels.Length; i++)
+            {
+                allLevels[i] = 0;
+                unlockedLevels[i] = 0;
+            }
+            nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
             Load();
         }
     }
@@ -94,10 +114,17 @@ public class GameStateController : MonoBehaviour
         state.maxHealth = maxHealth;
         state.livesRemaining = livesRemaining;
 
-        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        state.nextRegenTime = (nextRegenTime.ToUniversalTime() - epoch).TotalSeconds;
+        for (int i = 0; i < allLevels.Length; i++)
+        {
+            state.allLevels[i] = allLevels[i];
+            state.unlockedLevels[i] = unlockedLevels[i];
+        }
+
         // TODO: add items field 
 
+        var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        state.nextRegenTime = (nextRegenTime.ToUniversalTime() - epoch).TotalSeconds;
+        Debug.Log("Save date" + nextRegenTime);
         binaryFormatter.Serialize(file, state);
         file.Close();
     }
@@ -118,8 +145,16 @@ public class GameStateController : MonoBehaviour
             maxHealth = state.maxHealth;
             livesRemaining = state.livesRemaining;
 
-            var timeSpan = TimeSpan.FromSeconds(state.nextRegenTime);
-            nextRegenTime = new DateTime(timeSpan.Ticks).ToLocalTime();
+            for (int i = 0; i < allLevels.Length; i++)
+            {
+                allLevels[i] = state.allLevels[i];
+                unlockedLevels[i] = state.unlockedLevels[i];
+            }
+
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            //var timeSpan = TimeSpan.FromSeconds(state.nextRegenTime);
+            nextRegenTime = epoch.AddSeconds(state.nextRegenTime).ToLocalTime(); //new DateTime(timeSpan.Ticks).ToLocalTime();
+            Debug.Log("Load date" + nextRegenTime);
         }
     }
 }
@@ -134,4 +169,6 @@ class GameState
     public int maxHealth { get; set; }
     public int technology { get; set; }
     public double nextRegenTime { get; set; }
+    public int[] allLevels = new int[3];
+    public int[] unlockedLevels = new int[3];
 }

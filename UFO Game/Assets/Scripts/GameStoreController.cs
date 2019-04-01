@@ -46,11 +46,11 @@ public class GameStoreController : MonoBehaviour
     //Adds store elements to store
     void addToStore(){
 
-        buyableObjectsMap.add("MaxHealthUpgrade", 100);
+        buyableObjectsMap.Add("MaxHealthUpgrade", 100);
 
     }
 
-    public void purchase(Dictionary<string, int> object){
+    public void purchase(Dictionary<string, int> item){
         //GameState update to health and currency
     }
 }

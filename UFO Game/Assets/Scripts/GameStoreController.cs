@@ -9,8 +9,8 @@ public class GameStoreController : MonoBehaviour
     public Dictionary<string, int> buyableObjectsMap;
 
     public Text itemCount;
-    public Button purchaseButton;
-    public Button backButton;
+    // public Button purchaseButton;
+    // public Button backButton;
     public Text currency;
 
     //public GameState gameState;
@@ -56,6 +56,7 @@ public class GameStoreController : MonoBehaviour
         // currencyAmount -= item["MaxHealthUpgrade"];
         currencyAmount -= count*10;
         currency.text = currencyAmount.ToString();
+        itemCount.text = "0";
         
 
         GameStateController.controller.maxHealth += 10;

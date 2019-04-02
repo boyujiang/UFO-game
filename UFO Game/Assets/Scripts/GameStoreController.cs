@@ -11,16 +11,21 @@ public class GameStoreController : MonoBehaviour
     public Text itemCount;
     public Button purchaseButton;
     public Button backButton;
+    public Text currency;
 
     //public GameState gameState;
 
     int count;
+    int currencyAmount;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        count = int.Parse(itemCount.text);
-        buyableObjectsMap = new Dictionary<string, int>();
+        // count = int.Parse(itemCount.text);
+        // buyableObjectsMap = new Dictionary<string, int>();
+        currencyAmount = GameStateController.controller.technology;
+        currency.text = currencyAmount.ToString();
     }
 
     // Update is called once per frame
@@ -30,23 +35,29 @@ public class GameStoreController : MonoBehaviour
     // }
 
     //Adds 10 health to max health in game state
-    public void upgradePlayer(){
-
-        int healthIncrease = 10; //Can change value
-
-
-    }
-    
-    
 
     //Adds store elements to store
-    void addToStore(){
+    // void addToStore(){
 
-        buyableObjectsMap.Add("MaxHealthUpgrade", 100);
+    //     buyableObjectsMap.Add("MaxHealthUpgrade", 20);
 
-    }
+    // }
 
-    public void purchase(Dictionary<string, int> item){
+    public void purchase(){
         //GameState update to health and currency
+        
+
+        count = int.Parse(itemCount.text);
+
+        // Debug.Log(currency.text.Substring(0,3).Length);
+        // for(int i = 0; i < 4; i++){
+        //     Debug.Log(currency.text[i]);
+        // }
+        // currencyAmount -= item["MaxHealthUpgrade"];
+        currencyAmount -= count*20;
+        currency.text = currencyAmount.ToString();
+        
+
+        GameStateController.controller.maxHealth += 10;
     }
 }

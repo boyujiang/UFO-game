@@ -23,6 +23,8 @@ public class GameStoreController : MonoBehaviour
         // buyableObjectsMap = new Dictionary<string, int>();
         currencyAmount = GameStateController.controller.technology;
         currency.text = currencyAmount.ToString();
+        buyableObjectsMap = new Dictionary<string, int>();
+        buyableObjectsMap.Add("MaxHealthUpgrade", 10);
     }
 
     // Update is called once per frame
@@ -33,10 +35,10 @@ public class GameStoreController : MonoBehaviour
 
     //Adds 10 health to max health in game state
 
-    //Adds store elements to store
+    //Adds store elements to store 
     // void addToStore(){
 
-    //     buyableObjectsMap.Add("MaxHealthUpgrade", 20);
+    //     buyableObjectsMap.Add("MaxHealthUpgrade", 10);
 
     // }
 
@@ -47,7 +49,7 @@ public class GameStoreController : MonoBehaviour
         
         count = int.Parse(itemCount.text);
 
-        totalCost = count*GameStateController.controller.items["MaxHealthUpgrade"];
+        totalCost = count*buyableObjectsMap["MaxHealthUpgrade"];
 
         if(currencyAmount > totalCost){
             currencyAmount -= totalCost;

@@ -9,7 +9,8 @@ public class GameStoreController : MonoBehaviour
     public Dictionary<string, int> buyableObjectsMap;
 
     public Text itemCount;
-    public GameObject purchaseButton;
+    public Button purchaseButton;
+    public Button backButton;
 
     //public GameState gameState;
 
@@ -35,13 +36,8 @@ public class GameStoreController : MonoBehaviour
 
 
     }
-
-    //Loads the Game-Store scene
-    public void generateUI(){
-
-        SceneManager.LoadScene("game-store");
-
-    }
+    
+    
 
     //Adds store elements to store
     void addToStore(){

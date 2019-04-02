@@ -30,7 +30,7 @@ public class ItemDecrease : MonoBehaviour
             
             count--;
             itemCount.text = count.ToString();
-            Debug.Log(count);
+            
             
         }
     }

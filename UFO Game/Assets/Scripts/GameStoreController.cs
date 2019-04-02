@@ -47,7 +47,7 @@ public class GameStoreController : MonoBehaviour
         
         count = int.Parse(itemCount.text);
 
-        totalCost = count*10;
+        totalCost = count*GameStateController.controller.items["MaxHealthUpgrade"];
 
         if(currencyAmount > totalCost){
             currencyAmount -= totalCost;
@@ -61,7 +61,7 @@ public class GameStoreController : MonoBehaviour
         else {
             Debug.Log("Not enough currency");
         }
-        // currencyAmount -= item["MaxHealthUpgrade"];
+        
         
     }
 }

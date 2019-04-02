@@ -54,7 +54,7 @@ public class GameStoreController : MonoBehaviour
         //     Debug.Log(currency.text[i]);
         // }
         // currencyAmount -= item["MaxHealthUpgrade"];
-        currencyAmount -= count*20;
+        currencyAmount -= count*10;
         currency.text = currencyAmount.ToString();
         
 

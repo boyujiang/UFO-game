@@ -19,7 +19,7 @@ public class GameStateController : MonoBehaviour
         }
         set {
             _unlockedLevels = value;
-            levelSelection.SendMessage("UpdateLevelView");
+            //levelSelection.SendMessage("UpdateLevelView");
         }
     }
     public int[] allLevels { get; set; }
@@ -96,6 +96,7 @@ public class GameStateController : MonoBehaviour
             nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
             items = new Dictionary<string, int>();
             items.Add("maxHealthUpgrade", 50);
+            technology = 0;
             Load();
         }
         else

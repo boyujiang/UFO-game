@@ -25,6 +25,7 @@ public class GameStoreController : MonoBehaviour
         // count = int.Parse(itemCount.text);
         // buyableObjectsMap = new Dictionary<string, int>();
         currencyAmount = GameStateController.controller.technology;
+        Debug.Log("WOW :" + currencyAmount);
         currency.text = currencyAmount.ToString();
     }
 

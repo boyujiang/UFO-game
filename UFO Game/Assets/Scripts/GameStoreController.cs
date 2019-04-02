@@ -9,8 +9,6 @@ public class GameStoreController : MonoBehaviour
     public Dictionary<string, int> buyableObjectsMap;
 
     public Text itemCount;
-    public Button purchaseButton;
-    public Button backButton;
     public Text currency;
 
     //public GameState gameState;
@@ -22,7 +20,6 @@ public class GameStoreController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // count = int.Parse(itemCount.text);
         // buyableObjectsMap = new Dictionary<string, int>();
         currencyAmount = GameStateController.controller.technology;
         Debug.Log("WOW :" + currencyAmount);
@@ -44,21 +41,28 @@ public class GameStoreController : MonoBehaviour
 
     // }
 
+    // Need to add Dictionary as argument
     public void purchase(){
-        //GameState update to health and currency
         
-
+        int totalCost;
+        
         count = int.Parse(itemCount.text);
 
-        // Debug.Log(currency.text.Substring(0,3).Length);
-        // for(int i = 0; i < 4; i++){
-        //     Debug.Log(currency.text[i]);
-        // }
-        // currencyAmount -= item["MaxHealthUpgrade"];
-        currencyAmount -= count*10;
-        currency.text = currencyAmount.ToString();
-        
+        totalCost = count*10;
 
-        GameStateController.controller.maxHealth += 10;
+        if(currencyAmount > totalCost){
+            currencyAmount -= totalCost;
+            currency.text = currencyAmount.ToString();
+            itemCount.text = "0";
+        
+            GameStateController.controller.technology = currencyAmount;
+
+            GameStateController.controller.maxHealth += 10;
+        }
+        else {
+            Debug.Log("Not enough currency");
+        }
+        // currencyAmount -= item["MaxHealthUpgrade"];
+        
     }
 }

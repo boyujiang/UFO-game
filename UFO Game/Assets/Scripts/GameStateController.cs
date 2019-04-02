@@ -7,19 +7,30 @@ using UnityEngine;
 
 public class GameStateController : MonoBehaviour
 {
-    public bool completedTutorial;
-    // public BuyableObject[] items;
-    public int livesRemaining;
+    public bool completedTutorial { get; set; }
+    public Dictionary<string, int> items { get; set; }
+    public int livesRemaining { get; set; }
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
     public int technology { get; set; }
-    public int[] unlockedLevels { get; set; }
+    public int[] unlockedLevels {
+        get {
+            return _unlockedLevels;
+        }
+        set {
+            _unlockedLevels = value;
+            levelSelection.SendMessage("UpdateLevelView");
+        }
+    }
     public int[] allLevels { get; set; }
 
     public DateTime nextRegenTime { get; set; }
     public static GameStateController controller;
 
-    private const int RegenerateLifeLatency = 5; // in minutes
+    public GameObject levelSelection;
+
+    private int[] _unlockedLevels;
+    private const int RegenerateLifeLatency = 30; // in minutes
     private const int Levels = 3;
 
     void Awake()
@@ -28,7 +39,7 @@ public class GameStateController : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             controller = this;
-            
+
         }
         else if (controller != this)
         {
@@ -46,11 +57,11 @@ public class GameStateController : MonoBehaviour
         {
             if (livesRemaining < maxLives)
             {
-                
+
                 livesRemaining++;
                 Debug.Log("Life increased; Current amount of lives: " + livesRemaining);
             }
-            
+
             nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency);
         }
     }
@@ -75,24 +86,33 @@ public class GameStateController : MonoBehaviour
             Debug.Log("In focus");
             allLevels = new int[Levels];
             unlockedLevels = new int[Levels];
-            for (int i = 0; i < allLevels.Length; i++)
+            allLevels[0] = 0;
+            unlockedLevels[0] = 1;
+            for (int i = 1; i < allLevels.Length; i++)
             {
                 allLevels[i] = 0;
                 unlockedLevels[i] = 0;
             }
             nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
+            items = new Dictionary<string, int>();
+            items.Add("maxHealthUpgrade", 50);
             Load();
+        }
+        else
+        {
+            Save();
         }
     }
 
     // Called when the user leaves the game (ex. switching apps) 
     void OnApplicationPause(bool pause)
     {
+        Debug.Log("Pause. Bool status: " + pause);
         if (pause)
         {
+            Debug.Log("Pause Save");
             Save();
         }
-        
     }
 
     // Called when the user completely exits the game
@@ -113,6 +133,7 @@ public class GameStateController : MonoBehaviour
         state.maxLives = maxLives;
         state.maxHealth = maxHealth;
         state.livesRemaining = livesRemaining;
+        state.items = items;
 
         for (int i = 0; i < allLevels.Length; i++)
         {
@@ -144,6 +165,7 @@ public class GameStateController : MonoBehaviour
             maxLives = state.maxLives;
             maxHealth = state.maxHealth;
             livesRemaining = state.livesRemaining;
+            items = state.items;
 
             for (int i = 0; i < allLevels.Length; i++)
             {
@@ -163,7 +185,6 @@ public class GameStateController : MonoBehaviour
 class GameState
 {
     public bool completedTutorial { get; set; }
-    // public BuyableObject[] items;
     public int livesRemaining { get; set; }
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
@@ -171,4 +192,5 @@ class GameState
     public double nextRegenTime { get; set; }
     public int[] allLevels = new int[3];
     public int[] unlockedLevels = new int[3];
+    public Dictionary<string, int> items;
 }

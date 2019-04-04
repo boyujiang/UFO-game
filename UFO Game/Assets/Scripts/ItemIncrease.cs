@@ -26,6 +26,5 @@ public class ItemIncrease : MonoBehaviour
         count = int.Parse(itemCount.text);
         count++;
         itemCount.text = count.ToString();
-        Debug.Log(count);
     }
 }

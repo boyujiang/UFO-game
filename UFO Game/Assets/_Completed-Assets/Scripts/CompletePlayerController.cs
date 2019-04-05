@@ -3,6 +3,7 @@ using System.Collections;
 
 //Adding this allows us to access members of the UI namespace including Text.
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CompletePlayerController : MonoBehaviour {
 
@@ -115,16 +116,27 @@ public class CompletePlayerController : MonoBehaviour {
 
     }
 
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(4.0f);
+        SceneManager.LoadScene(0);
+    }
+
 	//This function updates the text displaying the number of objects we've collected and displays our victory message if we've collected all of them.
 	void SetCountText()
 	{
 		//Set the text property of our our countText object to "Count: " followed by the number stored in our count variable.
 		countText.text = "Count: " + count.ToString ();
 
-		//Check if we've collected all 12 pickups. If we have...
-		if (count >= 12)
-			//... then set the text property of our winText object to "You win!"
-			winText.text = "You win!";
+        //Check if we've collected all 12 pickups. If we have...
+        if (count >= 12)
+        {
+            //... then set the text property of our winText object to "You win!"
+            winText.text = "You win!";
+            GameStateController.controller.technology += count;
+            StartCoroutine(Wait());
+            
+        }
 	}
 
     //This function updates the text displaying the number of objects we've collected and displays our victory message if we've collected all of them.
@@ -135,7 +147,11 @@ public class CompletePlayerController : MonoBehaviour {
 
         //Check if we've collected all 12 pickups. If we have...
         if (health <= 0)
+        {
             //... then set the text property of our winText object to "You win!"
             winText.text = "You lose";
+            StartCoroutine(Wait());
+        }
+
     }
 }

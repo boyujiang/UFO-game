@@ -68,6 +68,7 @@ public class LevelSelectionController : MonoBehaviour
         int[] levels = GameStateController.controller.unlockedLevels;
         for (int i = 0; i < levels.Length; i++)
         {
+            Debug.Log("Update level view :" + levelButtons[i]);
             if(levels[i] == 0)
             {
                 levelButtons[i].interactable = false;

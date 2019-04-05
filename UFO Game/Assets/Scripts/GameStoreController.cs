@@ -12,6 +12,7 @@ public class GameStoreController : MonoBehaviour
     public Text currency;
     public Button rightScroll;
     public Button leftScroll;
+    public Text currencyNotif;
 
     //public GameState gameState;
 
@@ -31,14 +32,13 @@ public class GameStoreController : MonoBehaviour
             leftScroll.interactable = false;
         }
 
-        
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
+    void Update()
+    {
         
-    // }
+    }
 
     //Adds 10 health to max health in game state
 
@@ -68,7 +68,7 @@ public class GameStoreController : MonoBehaviour
             GameStateController.controller.maxHealth += 10;
         }
         else {
-            Debug.Log("Not enough currency");
+            currencyNotif.text = "Not Enough Technology!";
         }
         
         

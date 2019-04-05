@@ -83,7 +83,7 @@ public class CompletePlayerController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other) 
 	{
         //TODO: Make the player able to walk on water
-        if (other.gameObject.tag == "water")
+        if (other.gameObject.tag == "Water")
         {
             Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>());
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     public float velocity = 3f;
-    private float lifespan = 5f;
+    private float lifespan = 3f;
     private float startTime = 0f;
     public int playerdamage;
     Rigidbody2D rb2d;

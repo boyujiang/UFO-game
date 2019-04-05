@@ -80,6 +80,7 @@ public class GameStateController : MonoBehaviour
     {
         Debug.Log("In focus");
         // Set up defaults
+        // All of these will be overwritten by the load file, if applicable
         allLevels = new int[Levels];
         unlockedLevels = new int[Levels];
         allLevels[0] = 0;
@@ -89,23 +90,25 @@ public class GameStateController : MonoBehaviour
             allLevels[i] = 0;
             unlockedLevels[i] = 0;
         }
-        nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
+        nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); 
         items = new Dictionary<string, int>();
         items.Add("maxHealthUpgrade", 50);
         technology = 0;
         completedTutorial = false;
+        livesRemaining = 1;
     }
 
     // Called when the application first starts and each time it goes back into focus
     void OnApplicationFocus(bool hasFocus)
     {
         if (hasFocus)
-        {
+        { 
             InitialSetUp();
             Load();
         }
         else
         {
+            Debug.Log("Out of focus save event");
             Save();
         }
     }
@@ -116,7 +119,7 @@ public class GameStateController : MonoBehaviour
         Debug.Log("Pause. Bool status: " + pause);
         if (pause)
         {
-            Debug.Log("Pause Save");
+            Debug.Log("Application pause save event");
             Save();
         }
     }
@@ -124,6 +127,7 @@ public class GameStateController : MonoBehaviour
     // Called when the user completely exits the game
     void OnApplicationQuit()
     {
+        Debug.Log("Application quit save event");
         Save();
     }
 

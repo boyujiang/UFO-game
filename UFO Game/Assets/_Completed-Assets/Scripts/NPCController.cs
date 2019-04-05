@@ -6,7 +6,7 @@ public class NPCController : MonoBehaviour
 {
     private float latestDirectionChangeTime;
     private float directionChangeTime = 100f;
-    private float characterVelocity = 2f;
+    protected float characterVelocity = 2f;
     private Vector2 movementDirection;
     private Vector2 movementPerSecond;
     private Rigidbody2D rb2d;

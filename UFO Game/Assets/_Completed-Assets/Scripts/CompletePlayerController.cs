@@ -90,6 +90,7 @@ public class CompletePlayerController : MonoBehaviour {
 		if (other.gameObject.tag == "PickUp") 
 		{
             //... then set the other object we just collided with to inactive.
+
             Destroy(other.gameObject);
 			
 			//Add one to the current value of our count variable.

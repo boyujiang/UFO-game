@@ -5,7 +5,7 @@ using UnityEngine;
 public class FighterNPCController : NPCController
 {
     // Start is called before the first frame update
-    private readonly float projectileLatencyS = 1.2f;
+    private readonly float projectileLatencyS = 1.0f;
     private float timeSinceLastProjectile = 0f;
     public GameObject projectile;
     Vector2 projectilePos;
@@ -13,7 +13,9 @@ public class FighterNPCController : NPCController
     private void Start()
     {
         //projectile = Resources.Load("Projectile") as GameObject;
+        base.characterVelocity = base.characterVelocity * 3;
         base.Start();
+        
     }
 
     void CreateProjectile()
@@ -27,8 +29,10 @@ public class FighterNPCController : NPCController
     {
         if (Time.time - projectileLatencyS > timeSinceLastProjectile)
         {
+            
             CreateProjectile();
             timeSinceLastProjectile = Time.time;
+            
         }
         base.Update();
     }

@@ -12,6 +12,7 @@ public class CompletePlayerController : MonoBehaviour {
     public Text healthText;
 	public Text winText;			//Store a reference to the UI Text component which will display the 'You win' message.
     public Text timer;
+    public int wincondition;
 
 	private Rigidbody2D rb2d;		//Store a reference to the Rigidbody2D component required to use 2D Physics.
 	private int count;				//Integer to store the number of pickups collected so far.
@@ -130,7 +131,7 @@ public class CompletePlayerController : MonoBehaviour {
 		countText.text = "Count: " + count.ToString ();
 
         //Check if we've collected all 12 pickups. If we have...
-        if (count >= 12)
+        if (count >= wincondition)
         {
             //... then set the text property of our winText object to "You win!"
             winText.text = "You win!";

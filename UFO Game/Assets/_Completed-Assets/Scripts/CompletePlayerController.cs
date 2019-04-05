@@ -106,7 +106,8 @@ public class CompletePlayerController : MonoBehaviour {
             other.gameObject.SetActive(false);
 
             //Add one to the current value of our count variable.
-            health = health - 10;
+  
+            health = health - other.gameObject.playerdamage;
 
             //Update the currently displayed count by calling the SetCountText function.
             SetHealthText();

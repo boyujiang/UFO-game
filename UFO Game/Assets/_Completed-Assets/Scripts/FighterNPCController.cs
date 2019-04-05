@@ -5,9 +5,10 @@ using UnityEngine;
 public class FighterNPCController : NPCController
 {
     // Start is called before the first frame update
-    private readonly float projectileLatencyS = 1.0f;
+    private readonly float projectileLatencyS = 0.8f;
     private float timeSinceLastProjectile = 0f;
     public GameObject projectile;
+    //private ProjectileController control;
     Vector2 projectilePos;
 
     private void Start()
@@ -22,6 +23,8 @@ public class FighterNPCController : NPCController
     {
         projectilePos = this.transform.position;
         Instantiate(projectile, projectilePos, Quaternion.identity);
+      // control = projectile.GetComponent<ProjectileController>();
+      //  control.velocity *= 2;
     }
 
     // Update is called once per frame

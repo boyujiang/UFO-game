@@ -7,6 +7,7 @@ public class ProjectileController : MonoBehaviour
     public float velocity = 3f;
     private float lifespan = 5f;
     private float startTime = 0f;
+    public float playerdamage;
     Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()

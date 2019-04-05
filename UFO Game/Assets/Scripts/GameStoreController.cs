@@ -22,7 +22,6 @@ public class GameStoreController : MonoBehaviour
     {
         // buyableObjectsMap = new Dictionary<string, int>();
         currencyAmount = GameStateController.controller.technology;
-        Debug.Log("WOW :" + currencyAmount);
         currency.text = currencyAmount.ToString();
         buyableObjectsMap = new Dictionary<string, int>();
         buyableObjectsMap.Add("MaxHealthUpgrade", 10);
@@ -64,7 +63,6 @@ public class GameStoreController : MonoBehaviour
         else {
             Debug.Log("Not enough currency");
         }
-        
         
     }
 }

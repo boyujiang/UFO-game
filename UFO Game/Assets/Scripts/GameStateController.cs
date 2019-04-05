@@ -13,21 +13,21 @@ public class GameStateController : MonoBehaviour
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
     public int technology { get; set; }
+    public int[] allLevels { get; set; }
+    public DateTime nextRegenTime { get; set; }
+    public GameObject levelSelection;
+
+    public static GameStateController controller;
+
     public int[] unlockedLevels {
         get {
             return _unlockedLevels;
         }
         set {
             _unlockedLevels = value;
-            //levelSelection.SendMessage("UpdateLevelView");
+            levelSelection.SendMessage("UpdateLevelView");
         }
     }
-    public int[] allLevels { get; set; }
-
-    public DateTime nextRegenTime { get; set; }
-    public static GameStateController controller;
-
-    public GameObject levelSelection;
 
     private int[] _unlockedLevels;
     private const int RegenerateLifeLatency = 30; // in minutes
@@ -45,7 +45,6 @@ public class GameStateController : MonoBehaviour
         {
             Destroy(gameObject); // Enforces only one instance of GameStateController
         }
-
     }
 
     // Update is called once per frame
@@ -57,7 +56,6 @@ public class GameStateController : MonoBehaviour
         {
             if (livesRemaining < maxLives)
             {
-
                 livesRemaining++;
                 Debug.Log("Life increased; Current amount of lives: " + livesRemaining);
             }
@@ -84,6 +82,7 @@ public class GameStateController : MonoBehaviour
         if (hasFocus)
         {
             Debug.Log("In focus");
+            // Set up defaults
             allLevels = new int[Levels];
             unlockedLevels = new int[Levels];
             allLevels[0] = 0;
@@ -97,6 +96,7 @@ public class GameStateController : MonoBehaviour
             items = new Dictionary<string, int>();
             items.Add("maxHealthUpgrade", 50);
             technology = 0;
+
             Load();
         }
         else
@@ -191,7 +191,13 @@ class GameState
     public int maxHealth { get; set; }
     public int technology { get; set; }
     public double nextRegenTime { get; set; }
-    public int[] allLevels = new int[3];
-    public int[] unlockedLevels = new int[3];
+    public int[] allLevels;
+    public int[] unlockedLevels;
     public Dictionary<string, int> items;
+
+    public GameState()
+    {
+        allLevels = new int[3];
+        unlockedLevels = new int[3];
+    }
 }

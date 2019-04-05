@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LevelSelectionController : MonoBehaviour
 {
+    public GameObject canvas;
     public Button level1Button;
     public Button level2Button;
     public Button level3Button;
@@ -15,6 +16,7 @@ public class LevelSelectionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         levelButtons = new Button[3];
         levelButtons[0] = GameObject.Find("Level_1_Btn").GetComponent<Button>();
         levelButtons[1] = GameObject.Find("Level_2_Btn").GetComponent<Button>();
@@ -37,12 +39,25 @@ public class LevelSelectionController : MonoBehaviour
     {
         // The index of the Level Selection is 0. Game Store is set as 1 in build 
         //GameStateController.controller.unlockedLevels[0] = 1;
+        canvas.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void UpdateLevelView()
     {
-        Debug.Log("It WORKS");
+        //Start();
+        Debug.Log("Updating Level View");
+        int[] levels = GameStateController.controller.unlockedLevels;
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if(levels[i] == 0)
+            {
+                levelButtons[i].interactable = false;
+            } else
+            {
+                levelButtons[i].interactable = true;
+            }
+        }
     }
 
 

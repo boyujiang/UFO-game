@@ -39,7 +39,6 @@ public class GameStateController : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             controller = this;
-
         }
         else if (controller != this)
         {
@@ -76,27 +75,33 @@ public class GameStateController : MonoBehaviour
 
     }
 
+
+    void InitialSetUp()
+    {
+        Debug.Log("In focus");
+        // Set up defaults
+        allLevels = new int[Levels];
+        unlockedLevels = new int[Levels];
+        allLevels[0] = 0;
+        unlockedLevels[0] = 1;
+        for (int i = 1; i < allLevels.Length; i++)
+        {
+            allLevels[i] = 0;
+            unlockedLevels[i] = 0;
+        }
+        nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
+        items = new Dictionary<string, int>();
+        items.Add("maxHealthUpgrade", 50);
+        technology = 0;
+        completedTutorial = false;
+    }
+
     // Called when the application first starts and each time it goes back into focus
     void OnApplicationFocus(bool hasFocus)
     {
         if (hasFocus)
         {
-            Debug.Log("In focus");
-            // Set up defaults
-            allLevels = new int[Levels];
-            unlockedLevels = new int[Levels];
-            allLevels[0] = 0;
-            unlockedLevels[0] = 1;
-            for (int i = 1; i < allLevels.Length; i++)
-            {
-                allLevels[i] = 0;
-                unlockedLevels[i] = 0;
-            }
-            nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); // This will be overwritten if there already is a time in save file
-            items = new Dictionary<string, int>();
-            items.Add("maxHealthUpgrade", 50);
-            technology = 0;
-
+            InitialSetUp();
             Load();
         }
         else

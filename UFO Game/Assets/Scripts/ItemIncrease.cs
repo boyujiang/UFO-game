@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemIncrease : MonoBehaviour
 {
     public Text itemCount;
+    public Button purchaseButton;
     
     int count;
     // Start is called before the first frame update
@@ -26,5 +27,6 @@ public class ItemIncrease : MonoBehaviour
         count = int.Parse(itemCount.text);
         count++;
         itemCount.text = count.ToString();
+
     }
 }

@@ -10,28 +10,35 @@ public class GameStoreController : MonoBehaviour
 
     public Text itemCount;
     public Text currency;
+    public Button rightScroll;
+    public Button leftScroll;
+    public Text currencyNotif;
 
     //public GameState gameState;
 
     int count;
     int currencyAmount;
 
-
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        // buyableObjectsMap = new Dictionary<string, int>();
         currencyAmount = GameStateController.controller.technology;
-        currency.text = currencyAmount.ToString();
         buyableObjectsMap = new Dictionary<string, int>();
         buyableObjectsMap.Add("MaxHealthUpgrade", 10);
+        currency.text = currencyAmount.ToString();
+        
+        if(buyableObjectsMap.Count == 1){
+            rightScroll.interactable = false;
+            leftScroll.interactable = false;
+        }
+
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
+    void Update()
+    {
         
-    // }
+    }
 
     //Adds 10 health to max health in game state
 
@@ -61,9 +68,10 @@ public class GameStoreController : MonoBehaviour
             GameStateController.controller.maxHealth += 10;
         }
         else {
-            Debug.Log("Not enough currency");
+            currencyNotif.text = "Not Enough Technology!";
         }
         
         
     }
+
 }

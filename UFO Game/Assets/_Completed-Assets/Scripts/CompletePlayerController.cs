@@ -108,7 +108,7 @@ public class CompletePlayerController : MonoBehaviour {
 
             //Add one to the current value of our count variable.
   
-            health = health - other.gameObject.playerdamage;
+            health = health - 10;
 
             //Update the currently displayed count by calling the SetCountText function.
             SetHealthText();
@@ -151,6 +151,7 @@ public class CompletePlayerController : MonoBehaviour {
         {
             //... then set the text property of our winText object to "You win!"
             winText.text = "You lose";
+            GameStateController.controller.livesRemaining--;
             StartCoroutine(Wait());
         }
 

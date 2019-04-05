@@ -71,6 +71,7 @@ public class GameStoreController : MonoBehaviour
             Debug.Log("Not enough currency");
         }
         
+        
     }
 
 }

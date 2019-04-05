@@ -43,6 +43,24 @@ public class LevelSelectionController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public void OpenLevel1()
+    {
+        canvas.SetActive(false);
+        SceneManager.LoadScene(2);
+    }
+
+    public void OpenLevel2()
+    {
+        canvas.SetActive(false);
+        SceneManager.LoadScene(3);
+    }
+
+    public void OpenLevel3()
+    {
+        canvas.SetActive(false);
+        SceneManager.LoadScene(4);
+    }
+
     public void UpdateLevelView()
     {
         //Start();
@@ -53,7 +71,8 @@ public class LevelSelectionController : MonoBehaviour
             if(levels[i] == 0)
             {
                 levelButtons[i].interactable = false;
-            } else
+            }
+            else
             {
                 levelButtons[i].interactable = true;
             }

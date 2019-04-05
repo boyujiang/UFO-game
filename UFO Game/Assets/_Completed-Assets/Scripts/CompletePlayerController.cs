@@ -107,7 +107,7 @@ public class CompletePlayerController : MonoBehaviour {
 
             //Add one to the current value of our count variable.
   
-            health = health - other.gameObject.playerdamage;
+            health = health - other.gameObject.GetComponent<ProjectileController>().playerdamage;
 
             //Update the currently displayed count by calling the SetCountText function.
             SetHealthText();

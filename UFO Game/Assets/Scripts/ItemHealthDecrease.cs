@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemDecrease : MonoBehaviour
+public class ItemHealthDecrease : MonoBehaviour
 {
 
     public Text itemCount;

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemIncrease : MonoBehaviour
+public class levelIncrease : MonoBehaviour
 {
     public Text itemCount;
-    public Button purchaseButton;
-    
+
     int count;
     // Start is called before the first frame update
     void Start()
@@ -16,17 +15,10 @@ public class ItemIncrease : MonoBehaviour
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
-    
-    //Populates the text field with quantity
-    public void updateText(){
-        
+    public void updateText()
+    {
         count = int.Parse(itemCount.text);
         count++;
         itemCount.text = count.ToString();
-
     }
 }

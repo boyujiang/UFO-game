@@ -14,6 +14,7 @@ public class GameStoreController : MonoBehaviour
     public Button leftScroll;
     public Text currencyNotif;
     public Text levelCount;
+    public Text realCurrency;
 
     //public GameState gameState;
 
@@ -28,7 +29,7 @@ public class GameStoreController : MonoBehaviour
         buyableObjectsMap = new Dictionary<string, int>();
         buyableObjectsMap.Add("MaxHealthUpgrade", 10);
         buyableObjectsMap.Add("AddNewLevel", 50);
-        currency.text = currencyAmount.ToString();
+        currency.text = "Technology: " + currencyAmount.ToString();
         
         if(buyableObjectsMap.Count == 1){
             rightScroll.interactable = false;
@@ -64,8 +65,8 @@ public class GameStoreController : MonoBehaviour
         totalCost += countLevel*buyableObjectsMap["AddNewLevel"];
 
         if(currencyAmount > totalCost){
-            currencyAmount -= totalCost;
-            currency.text = currencyAmount.ToString();
+            GameStateController.controller.technology -= totalCost;
+            currency.text = "Technology: " + GameStateController.controller.technology.ToString();
             healthCount.text = "0";
         
             GameStateController.controller.technology = currencyAmount;

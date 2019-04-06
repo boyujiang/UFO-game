@@ -13,6 +13,7 @@ public class CompletePlayerController : MonoBehaviour {
 	public Text winText;			//Store a reference to the UI Text component which will display the 'You win' message.
     public Text timer;
     public int wincondition;
+    public Joystick joystick;
 
 	private Rigidbody2D rb2d;		//Store a reference to the Rigidbody2D component required to use 2D Physics.
 	private int count;				//Integer to store the number of pickups collected so far.
@@ -39,7 +40,12 @@ public class CompletePlayerController : MonoBehaviour {
         //Call our SetCountText function which will update the text with the current value for count.
         SetCountText ();
         SetHealthText();
-	}
+
+#if UNITY_EDITOR 
+        joystick.gameObject.SetActive(true);
+#endif
+
+    }
 
     ////FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     //void FixedUpdate()
@@ -58,10 +64,20 @@ public class CompletePlayerController : MonoBehaviour {
     //}
     void FixedUpdate()
     {
-        float movehorizontal = Input.GetAxis("Horizontal");
-        float movevertical = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(movehorizontal, movevertical);
+        float moveHorizontal, moveVertical;
+        Vector2 movement;
+#if UNITY_EDITOR
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
+        movement = new Vector2(moveHorizontal, moveVertical);
         rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
+#endif
+#if UNITY_ANDROID
+        moveHorizontal = joystick.Horizontal;
+        moveVertical = joystick.Vertical;
+        movement = new Vector2(moveHorizontal, moveVertical);
+        rb2d.MovePosition(rb2d.position + movement * speed * Time.fixedDeltaTime);
+#endif
     }
 
     void Update()

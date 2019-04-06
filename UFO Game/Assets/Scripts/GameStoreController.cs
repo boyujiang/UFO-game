@@ -70,7 +70,7 @@ public class GameStoreController : MonoBehaviour
         
             GameStateController.controller.technology = currencyAmount;
 
-            GameStateController.controller.maxHealth += 10;
+            GameStateController.controller.maxHealth += 10*countHealth;
         }
         else {
             currencyNotif.text = "Not Enough Technology!";

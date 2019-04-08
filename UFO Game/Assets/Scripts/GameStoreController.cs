@@ -62,7 +62,7 @@ public class GameStoreController : MonoBehaviour
         }
         
         if(countLives != 0){
-            Debug.Log("Open PlayStore");
+            Application.OpenURL("http://play.google.com");
         }
         
     }

@@ -10,17 +10,14 @@ public class GameStoreController : MonoBehaviour
 
     public Text healthCount;
     public Text currency;
-    public Button rightScroll;
-    public Button leftScroll;
     public Text currencyNotif;
     public Text levelCount;
-    public Text realCurrency;
-
-    //public GameState gameState;
+    public Text livesCount;
 
     int countHealth;
     int countLevel;
     int currencyAmount;
+    int countLives;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,11 +28,6 @@ public class GameStoreController : MonoBehaviour
         buyableObjectsMap.Add("AddNewLevel", 50);
         currency.text = "Technology: " + currencyAmount.ToString();
         
-        if(buyableObjectsMap.Count == 1){
-            rightScroll.interactable = false;
-            leftScroll.interactable = false;
-        }
-
     }
 
     // Update is called once per frame
@@ -44,22 +36,14 @@ public class GameStoreController : MonoBehaviour
         
     // }
 
-    //Adds 10 health to max health in game state
-
-    //Adds store elements to store 
-    // void addToStore(){
-
-    //     buyableObjectsMap.Add("MaxHealthUpgrade", 10);
-
-    // }
-
-    // Need to add Dictionary as argument
+    
     public void purchase(){
         
         int totalCost;
 
-        countHealth = int.Parse(healthCount.text);
+        countHealth = int.Parse(healthCount.text); //Parses text boxes for initial value 0
         countLevel = int.Parse(levelCount.text);
+        countLives = int.Parse(livesCount.text[0].ToString());
 
         totalCost = countHealth*buyableObjectsMap["MaxHealthUpgrade"];
         totalCost += countLevel*buyableObjectsMap["AddNewLevel"];
@@ -69,7 +53,7 @@ public class GameStoreController : MonoBehaviour
             currency.text = "Technology: " + GameStateController.controller.technology.ToString();
             healthCount.text = "0";
         
-            GameStateController.controller.technology = currencyAmount;
+            GameStateController.controller.technology = currencyAmount; //Changes GameState i.e. player stats
 
             GameStateController.controller.maxHealth += 10*countHealth;
         }
@@ -77,6 +61,9 @@ public class GameStoreController : MonoBehaviour
             currencyNotif.text = "Not Enough Technology!";
         }
         
+        if(countLives != 0){
+            Debug.Log("Open PlayStore");
+        }
         
     }
 

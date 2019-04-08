@@ -87,7 +87,8 @@ public class CompletePlayerController : MonoBehaviour {
         {
             timer.text = "Time left: " + ((int)timeLeft).ToString();
             winText.text = "Time up";
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            StartCoroutine(Wait());
         }
         else
         {

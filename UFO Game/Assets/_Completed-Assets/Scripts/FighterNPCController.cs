@@ -7,6 +7,7 @@ public class FighterNPCController : NPCController
     // Start is called before the first frame update
     private readonly float projectileLatencyS = 0.8f;
     private float timeSinceLastProjectile = 0f;
+    public int score = 2;
     public GameObject projectile;
     //private ProjectileController control;
     Vector2 projectilePos;

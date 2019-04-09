@@ -29,7 +29,7 @@ public class CompletePlayerController : MonoBehaviour {
 
 		//Initialize count to zero.
 		count = 0;
-        health = 100;
+        health = GameStateController.controller.maxHealth;
         timeLeft = 120f;
         startTime = Time.time;
 
@@ -113,7 +113,7 @@ public class CompletePlayerController : MonoBehaviour {
             Destroy(other.gameObject);
 			
 			//Add one to the current value of our count variable.
-			count = count + 1;
+			count = count + other.gameObject.GetComponent<NPCController>().score;
 			
 			//Update the currently displayed count by calling the SetCountText function.
 			SetCountText ();

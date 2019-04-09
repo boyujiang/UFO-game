@@ -6,6 +6,7 @@ public class ScientistNPCController : NPCController
 {
     private readonly float projectileLatencyS = 1.2f;
     private float timeSinceLastProjectile = 0f;
+    public int score = 10;
     public GameObject projectile;
     Vector2 projectilePos;
 

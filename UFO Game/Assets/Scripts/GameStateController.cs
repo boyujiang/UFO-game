@@ -12,7 +12,7 @@ public class GameStateController : MonoBehaviour
     public int livesRemaining { get; set; }
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
-    public int technology { get; set; }
+    
     public int[] allLevels { get; set; }
     public DateTime nextRegenTime { get; set; }
     public GameObject levelSelection;
@@ -28,8 +28,18 @@ public class GameStateController : MonoBehaviour
             levelSelection.SendMessage("UpdateLevelView");
         }
     }
+    public int technology {
+        get {
+            return _technology;
+        }
+        set {
+            _technology = value;
+            Save();
+        }
+    }
 
     private int[] _unlockedLevels;
+    private int _technology;
     private const int RegenerateLifeLatency = 30; // in minutes
     private const int Levels = 3;
 
@@ -90,11 +100,13 @@ public class GameStateController : MonoBehaviour
             allLevels[i] = 0;
             unlockedLevels[i] = 0;
         }
-        nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency); 
+        nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency);
         items = new Dictionary<string, int>();
         items.Add("maxHealthUpgrade", 50);
         technology = 0;
         completedTutorial = false;
+        maxHealth = 100;
+        technology = 100;
         livesRemaining = 1;
     }
 
@@ -102,7 +114,7 @@ public class GameStateController : MonoBehaviour
     void OnApplicationFocus(bool hasFocus)
     {
         if (hasFocus)
-        { 
+        {
             InitialSetUp();
             Load();
         }

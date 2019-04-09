@@ -53,7 +53,7 @@ public class GameStoreController : MonoBehaviour
             currency.text = "Technology: " + GameStateController.controller.technology.ToString();
             healthCount.text = "0";
         
-            GameStateController.controller.technology = currencyAmount; //Changes GameState i.e. player stats
+            //GameStateController.controller.technology = currencyAmount; //Changes GameState i.e. player stats
 
             GameStateController.controller.maxHealth += 10*countHealth;
         }

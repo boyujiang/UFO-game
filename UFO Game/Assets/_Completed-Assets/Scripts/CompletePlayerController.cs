@@ -20,6 +20,7 @@ public class CompletePlayerController : MonoBehaviour {
     private int health;
     private float timeLeft;
     private float startTime;
+    private bool gameOver;
 
 	// Use this for initialization
 	void Start()
@@ -32,6 +33,7 @@ public class CompletePlayerController : MonoBehaviour {
         health = GameStateController.controller.maxHealth;
         timeLeft = 120f;
         startTime = Time.time;
+        gameOver = false;
 
 		//Initialze winText to a blank string since we haven't won yet at beginning.
 		winText.text = "";
@@ -40,6 +42,7 @@ public class CompletePlayerController : MonoBehaviour {
         //Call our SetCountText function which will update the text with the current value for count.
         SetCountText ();
         SetHealthText();
+        
 
 #if UNITY_EDITOR 
         joystick.gameObject.SetActive(true);
@@ -119,7 +122,7 @@ public class CompletePlayerController : MonoBehaviour {
             }
             else if (other.gameObject.GetComponent<FighterNPCController>() != null)
             {
-                count = count = other.gameObject.GetComponent<FighterNPCController>().score;
+                count = count + other.gameObject.GetComponent<FighterNPCController>().score;
             }
 
 
@@ -139,7 +142,11 @@ public class CompletePlayerController : MonoBehaviour {
 
 
             //Update the currently displayed count by calling the SetCountText function.
-            SetHealthText();
+            if(!gameOver)
+            {
+                SetHealthText();
+            }
+            
         }
 
 
@@ -179,7 +186,11 @@ public class CompletePlayerController : MonoBehaviour {
         {
             //... then set the text property of our winText object to "You win!"
             winText.text = "You lose";
+            Debug.Log("Pl lives before: " + GameStateController.controller.livesRemaining);
             GameStateController.controller.livesRemaining--;
+            Debug.Log("Pl lives: " + GameStateController.controller.livesRemaining);
+            //Time.timeScale = 0.0f;
+            gameOver = true;
             StartCoroutine(Wait());
         }
 

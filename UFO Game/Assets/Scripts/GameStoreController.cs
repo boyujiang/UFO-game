@@ -19,6 +19,7 @@ public class GameStoreController : MonoBehaviour
     int currencyAmount;
     int countLives;
 
+
     // Start is called before the first frame update
     void Awake()
     {

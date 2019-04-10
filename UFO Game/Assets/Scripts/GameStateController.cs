@@ -17,7 +17,19 @@ public class GameStateController : MonoBehaviour
         }
     }
     public Dictionary<string, int> items { get; set; }
-    public int livesRemaining { get; set; }
+    public int livesRemaining {
+        get {
+            return _livesRemaining;
+        }
+        set {
+            _livesRemaining = value;
+            if (value < 0)
+            {
+                _livesRemaining = 0;
+            }
+            Save();
+        }
+    }
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
 
@@ -49,7 +61,8 @@ public class GameStateController : MonoBehaviour
     private int[] _unlockedLevels;
     private int _technology;
     private bool _completedTutorial;
-    private const int RegenerateLifeLatency = 30; // in minutes
+    private int _livesRemaining;
+    private const int RegenerateLifeLatency = 1; // in minutes
     private const int Levels = 3;
 
     void Awake()
@@ -63,6 +76,11 @@ public class GameStateController : MonoBehaviour
         {
             Destroy(gameObject); // Enforces only one instance of GameStateController
         }
+    }
+
+    void Start()
+    { 
+        Load();
     }
 
     // Update is called once per frame
@@ -115,7 +133,11 @@ public class GameStateController : MonoBehaviour
         _completedTutorial = false;
         maxHealth = 100;
         _technology = 100;
-        livesRemaining = 1;
+        maxLives = 3;
+
+        _livesRemaining = 1;
+
+        
     }
 
     // Called when the application first starts and each time it goes back into focus

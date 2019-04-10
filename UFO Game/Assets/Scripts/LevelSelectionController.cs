@@ -11,12 +11,14 @@ public class LevelSelectionController : MonoBehaviour
     public Button level2Button;
     public Button level3Button;
 
+    public Text lives;
+
     public Button[] levelButtons;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1.0f;
         levelButtons = new Button[3];
         levelButtons[0] = GameObject.Find("Level_1_Btn").GetComponent<Button>();
         levelButtons[1] = GameObject.Find("Level_2_Btn").GetComponent<Button>();
@@ -24,7 +26,8 @@ public class LevelSelectionController : MonoBehaviour
 
 
         int[] levels = GameStateController.controller.unlockedLevels;
-        for (int i = 0; i < levels.Length; i++)
+        levelButtons[0].interactable = true;
+        for (int i = 1; i < levels.Length; i++)
         {
             if (levels[i] == 0) // Not yet unlocked
             {
@@ -35,8 +38,24 @@ public class LevelSelectionController : MonoBehaviour
 
         if (GameStateController.controller.completedTutorial == false)
         {
+            canvas.SetActive(false);
             SceneManager.LoadScene("Tutorial1");
         }
+
+        Debug.Log(GameStateController.controller.livesRemaining);
+        UpdateLevelView();
+        if(GameStateController.controller.livesRemaining == 0)
+        {
+            for (int i = 0; i < levels.Length; i++)
+            {
+                levelButtons[i].interactable = false;
+            }
+        }
+    }
+
+    void Update()
+    {
+        lives.text = "Lives: " + GameStateController.controller.livesRemaining;
     }
 
 
@@ -77,7 +96,7 @@ public class LevelSelectionController : MonoBehaviour
         //Start();
         Debug.Log("Updating Level View");
         int[] levels = GameStateController.controller.unlockedLevels;
-        for (int i = 0; i < levels.Length; i++)
+        for (int i = 1; i < levels.Length; i++)
         {
             Debug.Log("Update level view :" + levelButtons[i]);
             if(levels[i] == 0)

@@ -7,12 +7,20 @@ using UnityEngine;
 
 public class GameStateController : MonoBehaviour
 {
-    public bool completedTutorial { get; set; }
+    public bool completedTutorial {
+        get {
+            return _completedTutorial;
+        }
+        set {
+            _completedTutorial = value;
+            Save();
+        }
+    }
     public Dictionary<string, int> items { get; set; }
     public int livesRemaining { get; set; }
     public int maxLives { get; set; }
     public int maxHealth { get; set; }
-    
+
     public int[] allLevels { get; set; }
     public DateTime nextRegenTime { get; set; }
     public GameObject levelSelection;
@@ -40,6 +48,7 @@ public class GameStateController : MonoBehaviour
 
     private int[] _unlockedLevels;
     private int _technology;
+    private bool _completedTutorial;
     private const int RegenerateLifeLatency = 30; // in minutes
     private const int Levels = 3;
 
@@ -103,7 +112,7 @@ public class GameStateController : MonoBehaviour
         nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency);
         items = new Dictionary<string, int>();
         items.Add("maxHealthUpgrade", 50);
-        completedTutorial = false;
+        _completedTutorial = false;
         maxHealth = 100;
         _technology = 100;
         livesRemaining = 1;

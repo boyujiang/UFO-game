@@ -9,4 +9,10 @@ public class changeMenuScene : MonoBehaviour
     {
         SceneManager.LoadScene(scenename);
     }
+
+    public void GoBackToLevelSelect()
+    {
+        GameStateController.controller.completedTutorial = true;
+        SceneManager.LoadScene(0);
+    }
 }

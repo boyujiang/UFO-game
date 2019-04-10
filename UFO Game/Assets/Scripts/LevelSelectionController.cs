@@ -32,6 +32,11 @@ public class LevelSelectionController : MonoBehaviour
                 levelButtons[i].interactable = false;
             }
         }
+
+        if (GameStateController.controller.completedTutorial == false)
+        {
+            SceneManager.LoadScene("Tutorial1");
+        }
     }
 
 
@@ -59,6 +64,12 @@ public class LevelSelectionController : MonoBehaviour
     {
         canvas.SetActive(false);
         SceneManager.LoadScene(4);
+    }
+
+    public void OpenTutorial()
+    {
+        canvas.SetActive(false);
+        SceneManager.LoadScene(5);
     }
 
     public void UpdateLevelView()

@@ -23,6 +23,7 @@ public class GameStoreController : MonoBehaviour
     void Awake()
     {
         currencyAmount = GameStateController.controller.technology;
+        Debug.Log("Game Store:" + GameStateController.controller.technology);
         buyableObjectsMap = new Dictionary<string, int>();
         buyableObjectsMap.Add("MaxHealthUpgrade", 10);
         buyableObjectsMap.Add("AddNewLevel", 50);
@@ -31,12 +32,16 @@ public class GameStoreController : MonoBehaviour
     }
 
     // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+    void Update()
+    {
+        currencyAmount = GameStateController.controller.technology;
+        currency.text = "Technology: " + currencyAmount.ToString();
+        Debug.Log("Game Store:" + GameStateController.controller.technology);
+    }
 
-    
+
+
+
     public void purchase(){
         
         int totalCost;

@@ -103,10 +103,9 @@ public class GameStateController : MonoBehaviour
         nextRegenTime = DateTime.Now.AddMinutes(RegenerateLifeLatency);
         items = new Dictionary<string, int>();
         items.Add("maxHealthUpgrade", 50);
-        technology = 0;
         completedTutorial = false;
         maxHealth = 100;
-        technology = 100;
+        _technology = 100;
         livesRemaining = 1;
     }
 

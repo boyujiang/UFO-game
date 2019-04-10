@@ -14,7 +14,6 @@ public class NPCController : MonoBehaviour
     private float spriteWidth = 256;
     private float width = 400;
     private float height = 400;
-    public int score = 1;
 
 
     public void Start()

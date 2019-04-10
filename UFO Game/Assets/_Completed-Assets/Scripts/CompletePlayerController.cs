@@ -113,10 +113,18 @@ public class CompletePlayerController : MonoBehaviour {
             Destroy(other.gameObject);
 			
 			//Add one to the current value of our count variable.
-			count = count + other.gameObject.GetComponent<NPCController>().score;
-			
-			//Update the currently displayed count by calling the SetCountText function.
-			SetCountText ();
+            if (other.gameObject.GetComponent<ScientistNPCController>() != null)
+            {
+                count = count + other.gameObject.GetComponent<ScientistNPCController>().score;
+            }
+            else if (other.gameObject.GetComponent<FighterNPCController>() != null)
+            {
+                count = count = other.gameObject.GetComponent<FighterNPCController>().score;
+            }
+
+
+            //Update the currently displayed count by calling the SetCountText function.
+            SetCountText ();
 		}
 
         if (other.gameObject.CompareTag("Projectile"))
